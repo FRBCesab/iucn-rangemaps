@@ -9,7 +9,6 @@
 #' @date 2024/03/06
 
 
-start <- Sys.time()
 
 ## Install Dependencies (listed in DESCRIPTION) ----
 
@@ -28,27 +27,32 @@ devtools::load_all(here::here())
 world_grid <- create_grid()
 
 
+###
+### MAMMALS
+### 
+
+
 ### Import Mammals spatial layers ----
 
 mammals <- mammals_read_data()
 
 
-### Update taxonomy ----
+### Update Mammals taxonomy ----
 
 mammals <- mammals_rename_subpop(mammals)
 mammals <- mammals_rename_species(mammals)
 
 
-### Extract species info ----
+### Extract Mammals species info ----
 
 taxonomy <- mammals_get_species_info(mammals)
 taxonomy <- mammals_match_taxonomies(taxonomy)
 
-write.csv(taxonomy, here::here("outputs", "mammals_iucn_taxonomy.csv"), 
+write.csv(taxonomy, here::here("outputs", "mammals_iucn_taxonomy.csv"),
           row.names = FALSE)
 
 
-### Compute range sizes (~ 30mins) ----
+### Compute Mammals range sizes (~ 30mins) ----
 
 range_sizes <- mammals_range_sizes(mammals, world_grid, n_cores = 20)
 
@@ -56,10 +60,42 @@ write.csv(range_sizes, here::here("outputs", "mammals_iucn_range_sizes.csv"),
           row.names = FALSE)
 
 
-### Intersect polygons with raster (~ 30mins) ----
+### Intersect Mammals polygons with raster (~ 30mins) ----
 
 occs_by_cells <- mammals_occ_on_cells(mammals, world_grid, n_cores = 20)
 
 qs::qsave(occs_by_cells, here::here("outputs", "mammals_iucn_occs_by_cells.qs"))
 
-print(Sys.time() - start)
+
+###
+### BIRDS
+### 
+
+
+### Split Birds spatial layers ----
+
+birds_split_polygons()
+
+
+### Extract Birds species info ----
+
+taxonomy <- birds_get_species_info(n_cores = 10)
+taxonomy <- birds_match_taxonomies(taxonomy)
+
+write.csv(taxonomy, here::here("outputs", "birds_birdlife_taxonomy.csv"),
+          row.names = FALSE)
+
+
+### Compute Birds range sizes (~ 30mins) ----
+
+range_sizes <- birds_range_sizes(world_grid, n_cores = 20)
+
+write.csv(range_sizes, here::here("outputs", "birds_birdlife_range_sizes.csv"),
+          row.names = FALSE)
+
+
+### Intersect Birds polygons with raster (~ 30mins) ----
+
+occs_by_cells <- birds_occ_on_cells(world_grid, n_cores = 20)
+
+qs::qsave(occs_by_cells, here::here("outputs", "birds_birdlife_occs_by_cells.qs"))
