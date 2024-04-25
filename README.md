@@ -21,21 +21,45 @@ sources</a><br> • <a href="#content">Content</a><br> •
 
 ## Overview
 
-This project is dedicated to… **{{ ADD PROJECT OVERVIEW }}**
+This project is dedicated to compute species range size and species
+richness of all Birds and Mammals of the World.
 
 ## Data sources
 
 This project uses the following databases:
 
-| Database | Usage    | Reference |    Link     |
-|:---------|:---------|:----------|:-----------:|
-| Source 1 | What for | Reference | [link](url) |
+| Database                                    | Usage                          | Reference                     |                                Link                                 |
+|:--------------------------------------------|:-------------------------------|:------------------------------|:-------------------------------------------------------------------:|
+| IUCN Mammals spatial data                   | Compute mammal species metrics | IUCN (2023)                   | [link](https://www.iucnredlist.org/resources/spatial-data-download) |
+| Bird species distribution maps of the world | Compute bird species metrics   | BirdLife International (2023) |      [link](https://datazone.birdlife.org/species/requestdis)       |
+| Natural Earth                               | World maps                     | None                          |              [link](https://www.naturalearthdata.com/)              |
+
+A comprehensive description of all these databases is available
+[here](https://github.com/frbcesab/iucn-rangemaps/blob/main/data/README.md).
 
 ## Workflow
 
 The analysis pipeline follows these steps:
 
-**{{ LIST ANALYSIS STEPS }}**
+1.  Create study area (raster of 0.08333° x 0.08333° resolution)
+2.  Analyses for Mammals species
+    - Import IUCN layer
+    - Extract species names
+    - Check taxonomy
+    - Merge subpopulation w/ parent
+    - Compute species range size (count grid cells)
+    - Compute species range size (polygons area)
+    - Intersect polygons on grid cells (occurrences at cell level)
+    - Compute species richness
+3.  Analyses for Birds species
+    - Import BirdLife layers
+    - Split spatial layers by Birds family
+    - Extract species names
+    - Check taxonomy
+    - Compute species range size (count grid cells)
+    - Compute species range size (polygons area)
+    - Intersect polygons on grid cells (occurrences at cell level)
+    - Compute species richness
 
 ## Content
 
@@ -56,13 +80,6 @@ This repository is structured as follow:
   contains raw data used in this project. See the
   [`README`](https://github.com/frbcesab/iucn-rangemaps/blob/main/data/README.md)
   for further information.
-
-- [`analyses/`](https://github.com/frbcesab/iucn-rangemaps/blob/main/analyses):
-  contains R scripts to run the workflow. The order to run these scripts
-  is explained in the
-  [`make.R`](https://github.com/frbcesab/iucn-rangemaps/blob/main/make.R)
-  and the description of each script is available in the header of each
-  file.
 
 - [`outputs/`](https://github.com/frbcesab/iucn-rangemaps/blob/main/outputs):
   contains the outputs of the project. See the
@@ -124,10 +141,12 @@ Please note that this project is released with a [Contributor Code of
 Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
-## Acknowledgments
-
-**{{ OPTIONAL SECTION }}**
-
 ## References
 
-**{{ OPTIONAL SECTION }}**
+BirdLife International and Handbook of the Birds of the World (2023)
+Bird species distribution maps of the world. Version 2023-1. Available
+at: <http://datazone.birdlife.org/species/requestdis>. Accessed on
+\[22/03/2024\].
+
+IUCN (2023) The IUCN Red List of Threatened Species. Version 2023-1.
+Available at: <https://www.iucnredlist.org>. Accessed on \[22/03/2024\].
