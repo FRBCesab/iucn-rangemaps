@@ -94,8 +94,6 @@ This repository is structured as follow:
 
 - [`outputs/`](https://github.com/frbcesab/iucn-rangemaps/blob/main/outputs): contains the outputs of the project. See the [`README`](https://github.com/frbcesab/iucn-rangemaps/blob/main/outputs/README.md) for a complete description of the files.
 
-- [`figures/`](https://github.com/frbcesab/iucn-rangemaps/blob/main/figures): contains the figures used to validate et visualize the outputs.
-
 
 
 ## Installation
@@ -124,7 +122,6 @@ source("make.R")
 
 - All required packages listed in the [`DESCRIPTION`](https://github.com/frbcesab/iucn-rangemaps/blob/main/DESCRIPTION) file will be installed (if necessary)
 - All required packages and R functions will be loaded
-- Each script in [`analyses/`](https://github.com/frbcesab/iucn-rangemaps/blob/main/analyses) can be run independently
 - Some steps listed in the [`make.R`](https://github.com/frbcesab/iucn-rangemaps/blob/main/make.R) might take time (several hours)
 
 
