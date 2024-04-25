@@ -21,8 +21,8 @@ sources</a><br> • <a href="#content">Content</a><br> •
 
 ## Overview
 
-This project is dedicated to compute species range size and species
-richness of all Birds and Mammals of the World.
+This project is dedicated to compute species range size of all Birds and
+Mammals of the World.
 
 ## Data sources
 
@@ -50,7 +50,6 @@ The analysis pipeline follows these steps:
     - Compute species range size (count grid cells)
     - Compute species range size (polygons area)
     - Intersect polygons on grid cells (occurrences at cell level)
-    - Compute species richness
 3.  Analyses for Birds species
     - Import BirdLife layers
     - Split spatial layers by Birds family
@@ -59,7 +58,6 @@ The analysis pipeline follows these steps:
     - Compute species range size (count grid cells)
     - Compute species range size (polygons area)
     - Intersect polygons on grid cells (occurrences at cell level)
-    - Compute species richness
 
 ## Content
 
