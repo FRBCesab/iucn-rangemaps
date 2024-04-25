@@ -23,3 +23,4 @@ man/
 NAMESPACE
 data/MAMMALS/*
 data/BIRDS/*
+outputs/birds_birdlife_occs_by_cells.qs
