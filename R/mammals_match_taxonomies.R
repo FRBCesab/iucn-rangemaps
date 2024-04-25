@@ -88,7 +88,7 @@ mammals_match_taxonomies <- function(data) {
   
   ## Match by binomial ----
   
-  spp <- data[which(!(data$iucn_id %in% taxo$iucn_id)), ]
+  spp <- data[which(!(data$"iucn_id" %in% taxo_1$"iucn_id")), ]
   
   taxo_2 <- merge(spp, ref, by.x = "iucn_binomial", by.y = "ref_binomial", 
                   all.x = TRUE, all.y = FALSE)
