@@ -27,6 +27,13 @@ devtools::load_all(here::here())
 world_grid <- create_grid()
 
 
+### CRS for spatial analyses ----
+
+eck_proj <- paste0("+proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 ", 
+                   "+datum=WGS84 +units=m +no_defs")
+
+
+
 ###
 ### MAMMALS
 ### 
@@ -67,6 +74,19 @@ occs_by_cells <- mammals_occ_on_cells(mammals, world_grid, n_cores = 20)
 qs::qsave(occs_by_cells, here::here("outputs", "mammals_iucn_occs_by_cells.qs"))
 
 
+### Map one species ----
+
+mammals_occurrences <- qs::qread(here::here("outputs", 
+                                            "mammals_iucn_occs_by_cells.qs"))
+
+world_grid     <- terra::rast(here::here("data", "world_grid.tif"))
+world_grid_eck <- terra::project(world_grid, eck_proj)
+
+sp_raster <- occs_to_raster(mammals_occurrences, world_grid_eck, "Canis lupus")
+
+terra::plot(sp_raster)
+
+
 ###
 ### BIRDS
 ### 
@@ -99,3 +119,16 @@ write.csv(range_sizes, here::here("outputs", "birds_birdlife_range_sizes.csv"),
 occs_by_cells <- birds_occ_on_cells(world_grid, n_cores = 20)
 
 qs::qsave(occs_by_cells, here::here("outputs", "birds_birdlife_occs_by_cells.qs"))
+
+
+### Map one species ----
+
+birds_occurrences <- qs::qread(here::here("outputs", 
+                                          "birds_birdlife_occs_by_cells.qs"))
+
+world_grid     <- terra::rast(here::here("data", "world_grid.tif"))
+world_grid_eck <- terra::project(world_grid, eck_proj)
+
+sp_raster <- occs_to_raster(birds_occurrences, world_grid_eck, "Accipiter cooperii")
+
+terra::plot(sp_raster)
